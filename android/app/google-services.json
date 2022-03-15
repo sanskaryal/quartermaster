@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "479462375089",
+    "firebase_url": "https://quartermaster-firebase-default-rtdb.firebaseio.com",
+    "project_id": "quartermaster-firebase",
+    "storage_bucket": "quartermaster-firebase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:479462375089:android:e9d67dc13fd1b286206c90",
+        "android_client_info": {
+          "package_name": "com.example.quartermaster"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "479462375089-t9b5qmssrkghg630mb9q8emuoiq8umh2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.quartermaster",
+            "certificate_hash": "0a11568c8fae2fa2575eca3f23837fbc8f81a573"
+          }
+        },
+        {
+          "client_id": "479462375089-f39jfqglneviccu2fo7g85dkrdi8coqf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZLuyaMbPSv1o35Af1TkwXVpEcFOIgQY0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "479462375089-f39jfqglneviccu2fo7g85dkrdi8coqf.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "479462375089-ajstjngpofn4dvbbd59j5s8ihj1b4di1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.qm"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
