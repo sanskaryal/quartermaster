@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
-import 'dashboard_screen.dart';
-import 'auth.dart';
+import '../expense/expense_home.dart';
+import '../../services/auth.dart';
 
 const users = {
   'dribbble@gmail.com': '12345',
@@ -50,14 +50,14 @@ class LoginScreen extends StatelessWidget {
       title: 'QuarterMaster',
       logo: const AssetImage('assets/images/qm_logo.png'),
       additionalSignupFields: const [
-        UserFormField(keyName: "First Name"),
-        UserFormField(keyName: "Last Name")
+        UserFormField(keyName: "FirstName"),
+        UserFormField(keyName: "LastName")
       ],
       onLogin: _authUser,
       onSignup: _signupUser,
       onSubmitAnimationCompleted: () {
         Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => const DashboardScreen(),
+          builder: (context) => const ExpenseHomeScreen(),
         ));
       },
       onRecoverPassword: _recoverPassword,
