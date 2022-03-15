@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quartermaster/chore/chore_home.dart';
 import 'package:quartermaster/login/login.dart';
+import 'package:quartermaster/profile/profile.dart';
 import 'package:quartermaster/services/auth.dart';
 
 class HomepageScreen extends StatelessWidget {
@@ -18,7 +19,8 @@ class HomepageScreen extends StatelessWidget {
             child: Text('Error'),
           );
         } else if (snapshot.hasData) {
-          return const ChoreHomeScreen();
+          // goes to profile screen if logged in... just for development... later replace with ChoreHome
+          return const ProfileScreen();
         } else {
           return const LoginScreen();
         }

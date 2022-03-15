@@ -15,23 +15,12 @@ class LoginScreen extends StatelessWidget {
 
   Future<String?> _authUser(LoginData data) {
     debugPrint('Name: ${data.name}, Password: ${data.password}');
-    return Future.delayed(loginTime).then((_) {
-      if (!users.containsKey(data.name)) {
-        return 'User not exists';
-      }
-      if (users[data.name] != data.password) {
-        return 'Password does not match';
-      }
-      return null;
-    });
+    return AuthService().signIn(data.name, data.password);
   }
 
   Future<String?> _signupUser(SignupData data) {
     debugPrint('signup Data: ${data.password}');
-    AuthService().signUp(data.name, data.password);
-    return Future.delayed(loginTime).then((_) {
-      return null;
-    });
+    return AuthService().signUp(data.name, data.password);
   }
 
   Future<String?> _recoverPassword(String name) {
@@ -49,10 +38,11 @@ class LoginScreen extends StatelessWidget {
     return FlutterLogin(
       title: 'QuarterMaster',
       logo: const AssetImage('assets/images/qm_logo.png'),
-      additionalSignupFields: const [
-        UserFormField(keyName: "FirstName"),
-        UserFormField(keyName: "LastName")
-      ],
+      // Uncomment the following lines to add full name in the signup process
+      // additionalSignupFields: const [
+      //   UserFormField(keyName: "FirstName"),
+      //   UserFormField(keyName: "LastName")
+      // ],
       onLogin: _authUser,
       onSignup: _signupUser,
       onSubmitAnimationCompleted: () {
