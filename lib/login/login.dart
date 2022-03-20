@@ -20,6 +20,7 @@ class LoginScreen extends StatelessWidget {
 
   Future<String?> _signupUser(SignupData data) {
     debugPrint('signup Data: ${data.password}');
+
     return AuthService().signUp(data.name, data.password);
   }
 
@@ -45,11 +46,11 @@ class LoginScreen extends StatelessWidget {
       // ],
       onLogin: _authUser,
       onSignup: _signupUser,
-      onSubmitAnimationCompleted: () {
-        Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => const ExpenseHomeScreen(),
-        ));
-      },
+      // onSubmitAnimationCompleted: () {
+      //   Navigator.of(context).pushReplacement(MaterialPageRoute(
+      //     builder: (context) => const ExpenseHomeScreen(),
+      //   ));
+      // },
       onRecoverPassword: _recoverPassword,
     );
   }

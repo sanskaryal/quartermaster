@@ -8,7 +8,7 @@ import 'package:quartermaster/shoplist/shoplist_home.dart';
 var appRoutes = {
   '/': (context) => const HomepageScreen(),
   '/login': (context) => const LoginScreen(),
-  '/profile': (context) => const ProfileScreen(),
+  '/profile': (context) => ProfileScreen(),
   '/expense': (context) => const ExpenseHomeScreen(),
   '/chore': (context) => const ChoreHomeScreen(),
   '/shoplist': (context) => const ShopListHomeScreen()

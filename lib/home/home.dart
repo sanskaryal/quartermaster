@@ -20,7 +20,7 @@ class HomepageScreen extends StatelessWidget {
           );
         } else if (snapshot.hasData) {
           // goes to profile screen if logged in... just for development... later replace with ChoreHome
-          return const ProfileScreen();
+          return const ChoreHomeScreen();
         } else {
           return const LoginScreen();
         }

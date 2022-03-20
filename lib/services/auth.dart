@@ -1,8 +1,17 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
+import 'firestore.dart';
+
 class AuthService {
   final userStream = FirebaseAuth.instance.authStateChanges();
   final user = FirebaseAuth.instance.currentUser;
+
+  Future<String?> getUserId() async {
+    if (user != null) {
+      return user!.uid;
+    }
+    return null;
+  }
 
   Future<String?> signUp(email, password) async {
     try {
@@ -17,6 +26,7 @@ class AuthService {
     } catch (e) {
       return (e.toString());
     }
+    FireStoreService().createUsers(email);
     return null;
   }
 
