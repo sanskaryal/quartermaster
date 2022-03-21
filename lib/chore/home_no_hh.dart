@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:quartermaster/shared/bottom_navbar.dart';
 
 import '../services/auth.dart';
 
@@ -10,9 +12,9 @@ class CHomeNoHH extends StatelessWidget {
     return Scaffold(
       body: Row(
         children: [
-          Center(
-              child: const Text(
-                  'You do not have a household. Create a household...')),
+          const Center(
+              child:
+                  Text('You do not have a household. Create a household...')),
           ElevatedButton(
             child: const Text("log me out"),
             onPressed: () async {
@@ -23,6 +25,7 @@ class CHomeNoHH extends StatelessWidget {
           ),
         ],
       ),
+      bottomNavigationBar: const BottomNavBar(),
     );
   }
 }

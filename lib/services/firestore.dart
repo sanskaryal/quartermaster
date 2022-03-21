@@ -4,22 +4,22 @@ import 'auth.dart';
 
 class FireStoreService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
+  var user = AuthService().user!;
 
   Future<void> createUsers(email) {
-    var user = AuthService().user!;
-    var ref = _db.collection('users').doc(user.uid);
+    var ref = _db.collection('Users').doc(user.uid);
 
     var data = {
       'email': email,
       'firstName': 'John',
       'lastName': 'Doe',
-      'household': [],
+      'houseHolds': [],
     };
     return ref.set(data, SetOptions(merge: true));
   }
 
-  Future<Users> getUserInfo(String uid) async {
-    var ref = _db.collection('Users').doc(uid);
+  Future<Users> getUserInfo() async {
+    var ref = _db.collection('Users').doc(user.uid);
     var snapshot = await ref.get();
     return Users.fromJson(snapshot.data() ?? {});
   }

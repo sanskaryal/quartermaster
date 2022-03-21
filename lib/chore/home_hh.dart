@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../shared/bottom_navbar.dart';
+
 class CHomeHH extends StatelessWidget {
   const CHomeHH({Key? key}) : super(key: key);
 
@@ -9,7 +11,7 @@ class CHomeHH extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Home"),
       ),
-      bottomNavigationBar: BottomNavigationBar(items: []),
+      bottomNavigationBar: const BottomNavBar(),
     );
   }
 }
