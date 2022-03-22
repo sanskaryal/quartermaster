@@ -23,4 +23,31 @@ class FireStoreService {
     var snapshot = await ref.get();
     return Users.fromJson(snapshot.data() ?? {});
   }
+
+  Future<void> createHouseholds(name) {
+    var ref = _db.collection('Households').doc();
+    String houseHoldId = ref.id;
+
+    var data = {
+      'name': name,
+      'chores': [],
+      'expenses': [],
+      'shoppingList': [],
+      'users': FieldValue.arrayUnion([user.uid])
+    };
+    addHouseholdtoUser(houseHoldId);
+    // add a function to update the household field on users table
+    return ref.set(data, SetOptions(merge: true));
+  }
+
+  Future<void> addHouseholdtoUser(houseHoldId) {
+    var ref = _db.collection('Users').doc(user.uid);
+
+    var data = {
+      'houseHolds': FieldValue.arrayUnion([houseHoldId])
+    };
+
+    // add a function to update the household field on users table
+    return ref.set(data, SetOptions(merge: true));
+  }
 }

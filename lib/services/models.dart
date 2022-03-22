@@ -20,34 +20,21 @@ class Users {
 }
 
 @JsonSerializable()
-class HouseHold {
-  final String houseHoldName;
-  final List<String> members;
+class Households {
+  final String name;
+  final List<String> chores;
+  final List<String> expenses;
+  final List<String> shoppingList;
+  final List<String> users;
 
-  HouseHold({this.houseHoldName = '', this.members = const []});
+  Households(
+      {this.name = '',
+      this.chores = const [],
+      this.expenses = const [],
+      this.shoppingList = const [],
+      this.users = const []});
 
-  factory HouseHold.fromJson(Map<String, dynamic> json) =>
-      _$HouseHoldFromJson(json);
-  Map<String, dynamic> toJson() => _$HouseHoldToJson(this);
-}
-
-@JsonSerializable()
-class Chores {
-  final String choreName;
-  final int freq;
-  final String houseHoldId;
-  final List<String> members;
-  final String startingDate;
-  final String type;
-
-  Chores(
-      {this.choreName = '',
-      this.freq = 0,
-      this.houseHoldId = '',
-      this.members = const [],
-      this.startingDate = '',
-      this.type = ''});
-
-  factory Chores.fromJson(Map<String, dynamic> json) => _$ChoresFromJson(json);
-  Map<String, dynamic> toJson() => _$ChoresToJson(this);
+  factory Households.fromJson(Map<String, dynamic> json) =>
+      _$HouseholdsFromJson(json);
+  Map<String, dynamic> toJson() => _$HouseholdsToJson(this);
 }

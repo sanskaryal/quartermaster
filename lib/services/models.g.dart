@@ -23,36 +23,30 @@ Map<String, dynamic> _$UsersToJson(Users instance) => <String, dynamic>{
       'houseHolds': instance.houseHolds,
     };
 
-HouseHold _$HouseHoldFromJson(Map<String, dynamic> json) => HouseHold(
-      houseHoldName: json['houseHoldName'] as String? ?? '',
-      members: (json['members'] as List<dynamic>?)
+Households _$HouseholdsFromJson(Map<String, dynamic> json) => Households(
+      name: json['name'] as String? ?? '',
+      chores: (json['chores'] as List<dynamic>?)
               ?.map((e) => e as String)
               .toList() ??
           const [],
-    );
-
-Map<String, dynamic> _$HouseHoldToJson(HouseHold instance) => <String, dynamic>{
-      'houseHoldName': instance.houseHoldName,
-      'members': instance.members,
-    };
-
-Chores _$ChoresFromJson(Map<String, dynamic> json) => Chores(
-      choreName: json['choreName'] as String? ?? '',
-      freq: json['freq'] as int? ?? 0,
-      houseHoldId: json['houseHoldId'] as String? ?? '',
-      members: (json['members'] as List<dynamic>?)
+      expenses: (json['expenses'] as List<dynamic>?)
               ?.map((e) => e as String)
               .toList() ??
           const [],
-      startingDate: json['startingDate'] as String? ?? '',
-      type: json['type'] as String? ?? '',
+      shoppingList: (json['shoppingList'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const [],
+      users:
+          (json['users'] as List<dynamic>?)?.map((e) => e as String).toList() ??
+              const [],
     );
 
-Map<String, dynamic> _$ChoresToJson(Chores instance) => <String, dynamic>{
-      'choreName': instance.choreName,
-      'freq': instance.freq,
-      'houseHoldId': instance.houseHoldId,
-      'members': instance.members,
-      'startingDate': instance.startingDate,
-      'type': instance.type,
+Map<String, dynamic> _$HouseholdsToJson(Households instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'chores': instance.chores,
+      'expenses': instance.expenses,
+      'shoppingList': instance.shoppingList,
+      'users': instance.users,
     };

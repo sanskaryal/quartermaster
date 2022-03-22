@@ -21,8 +21,19 @@ class ChoreHomeScreen extends StatelessWidget {
               return const CHomeHH();
             }
           } else {
-            return const CircularProgressIndicator();
+            return const ProgressIndicator();
           }
         });
+  }
+}
+
+class ProgressIndicator extends StatelessWidget {
+  const ProgressIndicator({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const CircularProgressIndicator();
   }
 }
