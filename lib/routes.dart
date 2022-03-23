@@ -1,5 +1,3 @@
-import 'dart:js';
-
 import 'package:quartermaster/chore/chore_home.dart';
 import 'package:quartermaster/expense/expense_home.dart';
 import 'package:quartermaster/home/home.dart';

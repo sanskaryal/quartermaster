@@ -72,7 +72,7 @@ class CreateHouseholdState extends State<CreateHousehold> {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text('Household Created')),
                       );
-                      Navigator.pushNamed(context, '/viewHouseholds');
+                      Navigator.pushNamed(context, '/chore');
                     }
                   },
                   child: const Text('Create Household'),
