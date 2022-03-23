@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quartermaster/chore/chore_home.dart';
 import 'package:quartermaster/services/firestore.dart';
 
 // Create a Form widget.
@@ -69,8 +70,9 @@ class CreateHouseholdState extends State<CreateHousehold> {
                       // If the form is valid, display a snackbar. In the real world,
                       // you'd often call a server or save the information in a database.
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Creating Household')),
+                        const SnackBar(content: Text('Household Created')),
                       );
+                      Navigator.pushNamed(context, '/viewHouseholds');
                     }
                   },
                   child: const Text('Create Household'),
@@ -81,6 +83,5 @@ class CreateHouseholdState extends State<CreateHousehold> {
         ),
       ),
     );
-    // Build a Form widget using the _formKey created above.
   }
 }

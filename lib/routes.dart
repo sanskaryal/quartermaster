@@ -1,7 +1,10 @@
+import 'dart:js';
+
 import 'package:quartermaster/chore/chore_home.dart';
 import 'package:quartermaster/expense/expense_home.dart';
 import 'package:quartermaster/home/home.dart';
 import 'package:quartermaster/household/create_household.dart';
+import 'package:quartermaster/household/view_households.dart';
 import 'package:quartermaster/login/login.dart';
 import 'package:quartermaster/profile/profile.dart';
 import 'package:quartermaster/shoplist/shoplist_home.dart';
@@ -14,4 +17,5 @@ var appRoutes = {
   '/chore': (context) => const ChoreHomeScreen(),
   '/shoplist': (context) => const ShopListHomeScreen(),
   '/createHousehold': (context) => CreateHousehold(),
+  '/viewHouseHolds': (context) => ViewHouseHolds(),
 };

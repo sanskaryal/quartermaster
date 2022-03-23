@@ -10,6 +10,6 @@ class ViewHouseHolds extends StatefulWidget {
 class _ViewHouseHoldsState extends State<ViewHouseHolds> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold();
   }
 }

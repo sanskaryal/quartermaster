@@ -10,6 +10,7 @@ class CHomeHH extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Home"),
+        automaticallyImplyLeading: false,
       ),
       bottomNavigationBar: const BottomNavBar(),
     );
