@@ -59,7 +59,7 @@ class FireStoreService {
 
   Future<void> createChores(name, member, frequency, date) {
     var ref = _db.collection('Chores').doc();
-    String choreID = ref.id;
+    // String choreID = ref.id;
 
     var data = {
       'name': name,

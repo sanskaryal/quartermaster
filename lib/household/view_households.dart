@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:quartermaster/household/hh_globals.dart';
 import 'package:quartermaster/services/firestore.dart';
 import 'package:quartermaster/services/models.dart';
 // import 'package:quartermaster/services/firestore.dart';
@@ -27,14 +28,14 @@ class _ViewHouseHoldsState extends State<ViewHouseHolds> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
-        child: getTextWidgets(widget.userInfo),
+        child: getTextWidgets(widget.userInfo, context),
       ),
       bottomNavigationBar: const BottomNavBar(),
     );
   }
 }
 
-Widget getTextWidgets(List<String> strings) {
+Widget getTextWidgets(List<String> strings, context) {
   return ListView(
       children: strings
           .map((hhid) => Center(
@@ -43,7 +44,7 @@ Widget getTextWidgets(List<String> strings) {
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       debugPrint(snapshot.data!.name + "aa");
-                      return createCard(snapshot.data);
+                      return createCard(snapshot.data, hhid, context);
                     } else {
                       return const Text("");
                     }
@@ -51,13 +52,21 @@ Widget getTextWidgets(List<String> strings) {
           .toList());
 }
 
-Widget createCard(hhid) {
-  inspect(hhid.name);
+Widget createCard(hh, hhid, context) {
   return Padding(
     padding: const EdgeInsets.all(8.0),
     child: SizedBox(
-        height: 50,
-        width: double.maxFinite,
-        child: ElevatedButton(onPressed: () => {}, child: Text(hhid.name))),
+      height: 50,
+      width: double.maxFinite,
+      child: ElevatedButton(
+        onPressed: () {
+          Ghh.setid(hhid);
+          inspect(hhid);
+          Navigator.pushNamed(context, '/viewChore');
+          // inspect(hhid);
+        },
+        child: Text(hh.name),
+      ),
+    ),
   );
 }

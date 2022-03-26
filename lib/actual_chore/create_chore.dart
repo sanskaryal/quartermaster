@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types
+
 /*
   Ryan Bearse
   
@@ -69,6 +71,7 @@ class _createChoreState extends State<CreateChore> {
                     choreName = value;
                     debugPrint(choreName);
                   }
+                  return null;
                 },
                 decoration: const InputDecoration(
                     border: OutlineInputBorder(
@@ -115,6 +118,7 @@ class _createChoreState extends State<CreateChore> {
                       debugPrint("$frequency");
                     }
                   }
+                  return null;
                 },
                 decoration: const InputDecoration(
                     border: OutlineInputBorder(
