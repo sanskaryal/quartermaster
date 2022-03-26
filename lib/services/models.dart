@@ -38,3 +38,33 @@ class Households {
       _$HouseholdsFromJson(json);
   Map<String, dynamic> toJson() => _$HouseholdsToJson(this);
 }
+
+// chore model - NEEDS UPDATE
+// model has changed since this was done.
+// no longer using fields: status, type, startDate
+// members now single String, no longer List<String>
+@JsonSerializable()
+class Chores {
+  final String name;
+  //final bool status;
+  //final int type;
+  //final List<String> members;
+  final String member;
+  final int frequency;
+  //final String startDate;
+  final String dueDate;
+
+  Chores({
+    this.name = '',
+    //this.status = false,
+    //this.type = 0,
+    //this.members = const [],
+    this.member = '',
+    this.frequency = 0,
+    //this.startDate = '',
+    this.dueDate = '',
+  });
+
+  factory Chores.fromJson(Map<String, dynamic> json) => _$ChoresFromJson(json);
+  Map<String, dynamic> toJson() => _$ChoresToJson(this);
+}

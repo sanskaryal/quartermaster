@@ -50,3 +50,17 @@ Map<String, dynamic> _$HouseholdsToJson(Households instance) =>
       'shoppingList': instance.shoppingList,
       'users': instance.users,
     };
+
+Chores _$ChoresFromJson(Map<String, dynamic> json) => Chores(
+      name: json['name'] as String? ?? '',
+      member: json['member'] as String? ?? '',
+      frequency: json['frequency'] as int? ?? 0,
+      dueDate: json['dueDate'] as String? ?? '',
+    );
+
+Map<String, dynamic> _$ChoresToJson(Chores instance) => <String, dynamic>{
+      'name': instance.name,
+      'member': instance.member,
+      'frequency': instance.frequency,
+      'dueDate': instance.dueDate,
+    };
