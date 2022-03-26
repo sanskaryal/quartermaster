@@ -24,6 +24,12 @@ class FireStoreService {
     return Users.fromJson(snapshot.data() ?? {});
   }
 
+  Future<Households> getHouseholdInfo(hhid) async {
+    var ref = _db.collection('Households').doc(hhid);
+    var snapshot = await ref.get();
+    return Households.fromJson(snapshot.data() ?? {});
+  }
+
   Future<void> createHouseholds(name) {
     var ref = _db.collection('Households').doc();
     String houseHoldId = ref.id;
