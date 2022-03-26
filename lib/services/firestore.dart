@@ -56,4 +56,20 @@ class FireStoreService {
     // add a function to update the household field on users table
     return ref.set(data, SetOptions(merge: true));
   }
+
+  Future<void> createChores(name, member, frequency, date) {
+    var ref = _db.collection('Chores').doc();
+    String choreID = ref.id;
+
+    var data = {
+      'name': name,
+      'member': member,
+      'frequency': frequency,
+      'dueDate': date
+    };
+    // how to get houseHoldID?
+    // addChoreToHousehold(choreID, houseHoldID);
+
+    return ref.set(data, SetOptions(merge: true));
+  }
 }
