@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:quartermaster/household/hh_globals.dart';
+import 'package:quartermaster/household/globals.dart';
 import 'package:quartermaster/services/firestore.dart';
 import 'package:quartermaster/services/models.dart';
 // import 'package:quartermaster/services/firestore.dart';
@@ -60,7 +60,7 @@ Widget createCard(hh, hhid, context) {
       width: double.maxFinite,
       child: ElevatedButton(
         onPressed: () {
-          Ghh.setid(hhid);
+          Global.sethhid(hhid);
           inspect(hhid);
           Navigator.pushNamed(context, '/viewChore');
           // inspect(hhid);

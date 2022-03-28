@@ -2,6 +2,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../household/globals.dart';
 import 'firestore.dart';
 
 class AuthService {
@@ -47,6 +48,7 @@ class AuthService {
         return 'Wrong password provided for that user.';
       }
     }
+
     return null;
   }
 }

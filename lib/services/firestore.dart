@@ -72,4 +72,10 @@ class FireStoreService {
 
     return ref.set(data, SetOptions(merge: true));
   }
+
+  Future<Chores> getChoreInfo(cid) async {
+    var ref = _db.collection('Chores').doc(cid);
+    var snapshot = await ref.get();
+    return Chores.fromJson(snapshot.data() ?? {});
+  }
 }
