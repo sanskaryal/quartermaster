@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quartermaster/actual_chore/view_chores.dart';
+import 'package:quartermaster/actual_chore/view_all_chores.dart';
 import 'package:quartermaster/services/auth.dart';
 import 'package:quartermaster/services/firestore.dart';
 import 'package:quartermaster/services/models.dart';
