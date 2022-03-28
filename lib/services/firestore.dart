@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:quartermaster/household/globals.dart';
 import 'package:quartermaster/services/models.dart';
 import 'auth.dart';
 
@@ -57,9 +58,9 @@ class FireStoreService {
     return ref.set(data, SetOptions(merge: true));
   }
 
-  Future<void> createChores(name, member, frequency, date) {
+  Future<void> createChores(name, member, frequency, date, hhid) {
     var ref = _db.collection('Chores').doc();
-    // String choreID = ref.id;
+    String choreID = ref.id;
 
     var data = {
       'name': name,
@@ -68,14 +69,36 @@ class FireStoreService {
       'dueDate': date
     };
     // how to get houseHoldID?
-    // addChoreToHousehold(choreID, houseHoldID);
+    addChoreToHouseHold(choreID, Global.gethhid());
 
     return ref.set(data, SetOptions(merge: true));
   }
 
-  Future<Chores> getChoreInfo(cid) async {
-    var ref = _db.collection('Chores').doc(cid);
+  Future<void> addChoreToHouseHold(cid, hhid) {
+    var ref = _db.collection('Households').doc(hhid);
+
+    var data = {
+      'chores': FieldValue.arrayUnion([cid])
+    };
+
+    return ref.set(data, SetOptions(merge: true));
+  }
+
+  Future<Chores> getChoreInfo(choreID) async {
+    var ref = _db.collection('Chores').doc(choreID);
     var snapshot = await ref.get();
     return Chores.fromJson(snapshot.data() ?? {});
+  }
+
+  Future<List<String>> getHouseMemberNames(hid) async {
+    List<String> people = [];
+    var ref = _db.collection('Users').where('houseHolds', arrayContains: hid);
+    var snapshot = await ref.get();
+
+    for (var user in snapshot.docs) {
+      people.add(user.get("firstName"));
+    }
+
+    return people;
   }
 }

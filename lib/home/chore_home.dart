@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:quartermaster/chore/home_no_hh.dart';
+import 'package:quartermaster/home/home_no_hh.dart';
 import 'package:quartermaster/household/view_households.dart';
 
 import 'package:quartermaster/services/firestore.dart';

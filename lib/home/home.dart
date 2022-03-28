@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quartermaster/chore/chore_home.dart';
+import 'package:quartermaster/home/chore_home.dart';
 import 'package:quartermaster/login/login.dart';
 
 import 'package:quartermaster/services/auth.dart';
