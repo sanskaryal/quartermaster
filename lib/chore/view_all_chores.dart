@@ -6,17 +6,16 @@ import 'package:quartermaster/services/models.dart';
 // import 'package:quartermaster/services/firestore.dart';
 // import 'package:quartermaster/shared/bottom_navbar.dart';
 
-class ViewChores extends StatefulWidget {
-  final a = 5;
+class ViewAllChores extends StatefulWidget {
   // userinfo is household array
   final List<String> choreInfo;
-  const ViewChores({Key? key, required this.choreInfo}) : super(key: key);
+  const ViewAllChores({Key? key, required this.choreInfo}) : super(key: key);
 
   @override
-  State<ViewChores> createState() => _ViewChoresState();
+  State<ViewAllChores> createState() => _ViewAllChoresState();
 }
 
-class _ViewChoresState extends State<ViewChores> {
+class _ViewAllChoresState extends State<ViewAllChores> {
   @override
   Widget build(BuildContext context) {
     //debugPrint(widget.choreInfo.elementAt(1));

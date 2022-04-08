@@ -14,12 +14,10 @@
   will also add the choreID to the current household's chores array.
 */
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:quartermaster/household/globals.dart';
 import 'package:quartermaster/services/firestore.dart';
-import 'package:quartermaster/services/models.dart';
 
 class CreateChore extends StatefulWidget {
   const CreateChore({Key? key}) : super(key: key);
@@ -81,6 +79,7 @@ class _CreateChoreState extends State<CreateChore> {
                       choreName = value;
                       debugPrint(choreName);
                     }
+                    return null;
                   },
                   decoration: const InputDecoration(
                       border: OutlineInputBorder(
@@ -116,6 +115,7 @@ class _CreateChoreState extends State<CreateChore> {
                       frequency = int.parse(value);
                       debugPrint("$frequency");
                     }
+                    return null;
                   },
                   decoration: const InputDecoration(
                       border: OutlineInputBorder(
@@ -180,11 +180,15 @@ class _CreateChoreState extends State<CreateChore> {
                           debugPrint(dateSelected);
                         }
 
-                        FireStoreService().createChores(choreName, choreUser,
-                            frequency, dateSelected, "create_chore_house");
+                        await FireStoreService().createChores(
+                            choreName,
+                            choreUser,
+                            frequency,
+                            dateSelected,
+                            "create_chore_house");
 
                         debugPrint("Chore created");
-
+                        Navigator.pushNamed(context, '/viewChore');
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(content: Text('Chore Created')),
                         );

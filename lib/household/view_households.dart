@@ -1,14 +1,15 @@
 import 'dart:developer';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:quartermaster/household/globals.dart';
+import 'package:quartermaster/services/auth.dart';
 import 'package:quartermaster/services/firestore.dart';
 import 'package:quartermaster/services/models.dart';
 // import 'package:quartermaster/services/firestore.dart';
 import 'package:quartermaster/shared/bottom_navbar.dart';
 
 class ViewHouseHolds extends StatefulWidget {
-  final a = 5;
   // userinfo is household array
   final List<String> userInfo;
   const ViewHouseHolds({Key? key, required this.userInfo}) : super(key: key);
@@ -59,7 +60,9 @@ Widget createCard(hh, hhid, context) {
       height: 50,
       width: double.maxFinite,
       child: ElevatedButton(
-        onPressed: () {
+        onPressed: () async {
+          String? userid = await AuthService().getUserId();
+          Global.setuid(userid);
           Global.sethhid(hhid);
           inspect(hhid);
           Navigator.pushNamed(context, '/viewChore');

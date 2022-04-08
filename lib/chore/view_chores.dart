@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:quartermaster/chore/view_all_chores.dart';
 import 'package:quartermaster/household/globals.dart';
 import 'package:quartermaster/services/firestore.dart';
 import 'package:quartermaster/services/models.dart';
@@ -26,9 +27,47 @@ class ViewChores extends StatelessWidget {
               }
             }
             debugPrint(Global.gethhid());
-            return const Center(
-                child: const Text("You have no Chores! Enjoy!!!"));
+            return const Center(child: Text("You have no Chores! Enjoy!!!"));
           }),
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FutureBuilder(
+              future: FireStoreService().getHouseholdInfo("create_chore_house"),
+              builder: (context, AsyncSnapshot<Households> snapshot) {
+                if (snapshot.hasData) {
+                  debugPrint("snapshot has data");
+                  return FloatingActionButton(
+                      heroTag: "show_all_chores",
+                      child: const Icon(Icons.assignment_outlined),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ViewAllChores(
+                                      choreInfo: snapshot.data!.chores,
+                                    )));
+                      });
+                } else {
+                  return FloatingActionButton(
+                      heroTag: "error",
+                      onPressed: () {
+                        debugPrint("No data");
+                      },
+                      child: const Text("FAILURE"));
+                }
+              }),
+          const SizedBox(
+            width: 10,
+          ),
+          FloatingActionButton(
+              heroTag: "createChore",
+              child: const Icon(Icons.add),
+              onPressed: () {
+                Navigator.pushNamed(context, '/createChore');
+              })
+        ],
+      ),
       bottomNavigationBar: const BottomNavBar(),
     );
   }
@@ -58,10 +97,13 @@ Widget getTextWidgets(List<String> strings, context) {
                   future: FireStoreService().getChoreInfo(hhid),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
-                      debugPrint(snapshot.data!.name + "aa");
-                      return createCard(snapshot.data, hhid, context);
+                      if (snapshot.data!.member == Global.getuid()) {
+                        return createCard(snapshot.data, hhid, context);
+                      } else {
+                        return const Text("");
+                      }
                     } else {
-                      return const Text("aa");
+                      return const Text("");
                     }
                   })))
           .toList());
@@ -75,9 +117,6 @@ Widget createCard(chore, cid, context) {
       width: double.maxFinite,
       child: ElevatedButton(
         onPressed: () {
-          Global.sethhid(cid);
-          inspect(cid);
-          Navigator.pushNamed(context, '/viewChore');
           // inspect(hhid);
         },
         child: Text(chore.name),
