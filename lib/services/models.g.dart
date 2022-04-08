@@ -64,3 +64,33 @@ Map<String, dynamic> _$ChoresToJson(Chores instance) => <String, dynamic>{
       'frequency': instance.frequency,
       'dueDate': instance.dueDate,
     };
+
+ShoppingLists _$ShoppingListsFromJson(Map<String, dynamic> json) =>
+    ShoppingLists(
+      name: json['name'] as String? ?? '',
+      household: json['household'] as String? ?? '',
+      items:
+          (json['items'] as List<dynamic>?)?.map((e) => e as String).toList() ??
+              const [],
+    );
+
+Map<String, dynamic> _$ShoppingListsToJson(ShoppingLists instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'household': instance.household,
+      'items': instance.items,
+    };
+
+ShoppingItems _$ShoppingItemsFromJson(Map<String, dynamic> json) =>
+    ShoppingItems(
+      itemName: json['itemName'] as String? ?? '',
+      status: json['status'] as bool? ?? false,
+      shoppingListID: json['shoppingListID'] as String? ?? '',
+    );
+
+Map<String, dynamic> _$ShoppingItemsToJson(ShoppingItems instance) =>
+    <String, dynamic>{
+      'itemName': instance.itemName,
+      'status': instance.status,
+      'shoppingListID': instance.shoppingListID,
+    };

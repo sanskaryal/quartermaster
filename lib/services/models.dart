@@ -68,3 +68,30 @@ class Chores {
   factory Chores.fromJson(Map<String, dynamic> json) => _$ChoresFromJson(json);
   Map<String, dynamic> toJson() => _$ChoresToJson(this);
 }
+
+@JsonSerializable()
+class ShoppingLists {
+  final String name;
+  final String household;
+  final List<String> items;
+
+  ShoppingLists({this.name = '', this.household = '', this.items = const []});
+
+  factory ShoppingLists.fromJson(Map<String, dynamic> json) =>
+      _$ShoppingListsFromJson(json);
+  Map<String, dynamic> toJson() => _$ShoppingListsToJson(this);
+}
+
+@JsonSerializable()
+class ShoppingItems {
+  final String itemName;
+  final bool status;
+  final String shoppingListID;
+
+  ShoppingItems(
+      {this.itemName = '', this.status = false, this.shoppingListID = ''});
+
+  factory ShoppingItems.fromJson(Map<String, dynamic> json) =>
+      _$ShoppingItemsFromJson(json);
+  Map<String, dynamic> toJson() => _$ShoppingItemsToJson(this);
+}

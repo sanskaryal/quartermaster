@@ -36,10 +36,10 @@ class BottomNavBar extends StatelessWidget {
           case 0:
             break;
           case 1:
-            Navigator.pushNamed(context, '/expense');
+            Navigator.pushNamed(context, '/profile');
             break;
           case 2:
-            Navigator.pushNamed(context, '/profile');
+            Navigator.pushNamed(context, '/viewShopList');
             break;
         }
       },
