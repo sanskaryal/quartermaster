@@ -90,15 +90,27 @@ class FireStoreService {
     return Chores.fromJson(snapshot.data() ?? {});
   }
 
-  Future<List<String>> getHouseMemberNames(hid) async {
-    List<String> people = [];
+  Future<List<String>> getHouseMemberIDs(hid) async {
+    List<String> userIDs = [];
     var ref = _db.collection('Users').where('houseHolds', arrayContains: hid);
     var snapshot = await ref.get();
 
     for (var user in snapshot.docs) {
-      people.add(user.get("firstName"));
+      userIDs.add(user.id);
     }
 
-    return people;
+    return userIDs;
+  }
+
+  Future<List<String>> getHouseMemberNames(hid) async {
+    List<String> memberNames = [];
+    var ref = _db.collection('Users').where('houseHolds', arrayContains: hid);
+    var snapshot = await ref.get();
+
+    for (var user in snapshot.docs) {
+      memberNames.add(user.get("firstName"));
+    }
+
+    return memberNames;
   }
 }
