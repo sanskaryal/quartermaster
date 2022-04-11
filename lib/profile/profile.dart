@@ -29,9 +29,9 @@ class ProfileScreen extends StatelessWidget {
                         },
                       ),
                       ElevatedButton(
-                        child: Text("${snapshot.data}"),
-                        onPressed: () {
-                          debugPrint(snapshot.data);
+                        child: const Text("add member"),
+                        onPressed: () async {
+                          Navigator.pushNamed(context, '/addMember');
                         },
                       ),
                     ],

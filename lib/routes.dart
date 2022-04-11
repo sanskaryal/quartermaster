@@ -3,6 +3,7 @@ import 'package:quartermaster/home/chore_home.dart';
 import 'package:quartermaster/chore/create_chore.dart';
 // import 'package:quartermaster/expense/expense_home.dart';
 import 'package:quartermaster/home/home.dart';
+import 'package:quartermaster/household/add_member.dart';
 import 'package:quartermaster/household/create_household.dart';
 // import 'package:quartermaster/household/view_households.dart';
 import 'package:quartermaster/login/login.dart';
@@ -19,5 +20,6 @@ var appRoutes = {
   '/createHousehold': (context) => const CreateHousehold(),
   // '/viewHouseHolds': (context) => const ViewHouseHolds(userInfo: [],),
   '/createChore': (context) => const CreateChore(),
-  '/viewChore': (context) => const ViewChores()
+  '/viewChore': (context) => const ViewChores(),
+  '/addMember': (context) => const AddMember(),
 };

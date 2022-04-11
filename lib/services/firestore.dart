@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:quartermaster/household/globals.dart';
 import 'package:quartermaster/services/models.dart';
 import 'auth.dart';
@@ -7,13 +10,13 @@ class FireStoreService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
   var user = AuthService().user!;
 
-  Future<void> createUsers(email) {
+  Future<void> createUsers(email, firstName, lastName) {
     var ref = _db.collection('Users').doc(user.uid);
 
     var data = {
       'email': email,
-      'firstName': 'John',
-      'lastName': 'Doe',
+      'firstName': firstName,
+      'lastName': lastName,
       'houseHolds': [],
     };
     return ref.set(data, SetOptions(merge: true));
@@ -100,5 +103,34 @@ class FireStoreService {
     }
 
     return people;
+  }
+
+  Future<String> getUidByEmail(email) async {
+    var ref = _db.collection('Users').where("email", isEqualTo: email).limit(1);
+    var snapshot = await ref.get();
+    for (var user in snapshot.docs) {
+      return user.id;
+    }
+    return "";
+  }
+
+  Future<void> addHidToUser(email, hhid) async {
+    String uid = await getUidByEmail(email);
+    var ref = _db.collection('Users').doc(uid);
+
+    var data = {
+      'houseHolds': FieldValue.arrayUnion([hhid])
+    };
+    return ref.set(data, SetOptions(merge: true));
+  }
+
+  Future<void> addUidtoHH(email, hhid) async {
+    String uid = await getUidByEmail(email);
+    var ref = _db.collection("Households").doc(hhid);
+
+    var data = {
+      'users': FieldValue.arrayUnion([uid])
+    };
+    return ref.set(data, SetOptions(merge: true));
   }
 }

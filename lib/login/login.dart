@@ -14,14 +14,16 @@ class LoginScreen extends StatelessWidget {
   Duration get loginTime => const Duration(milliseconds: 2250);
 
   Future<String?> _authUser(LoginData data) {
-    debugPrint('Name: ${data.name}, Password: ${data.password}');
+    // debugPrint('Name: ${data.name}, Password: ${data.password}');
     return AuthService().signIn(data.name, data.password);
   }
 
   Future<String?> _signupUser(SignupData data) {
-    debugPrint('signup Data: ${data.password}');
+    // debugPrint('signup Data: ${data.password}');
+    var firstName = data.additionalSignupData!["FirstName"];
+    var lastName = data.additionalSignupData!["LastName"];
 
-    return AuthService().signUp(data.name, data.password);
+    return AuthService().signUp(data.name, data.password, firstName, lastName);
   }
 
   Future<String?> _recoverPassword(String name) {
@@ -40,10 +42,10 @@ class LoginScreen extends StatelessWidget {
       title: 'QuarterMaster',
       logo: const AssetImage('assets/images/qm_logo.png'),
       // Uncomment the following lines to add full name in the signup process
-      // additionalSignupFields: const [
-      //   UserFormField(keyName: "FirstName"),
-      //   UserFormField(keyName: "LastName")
-      // ],
+      additionalSignupFields: const [
+        UserFormField(keyName: "FirstName"),
+        UserFormField(keyName: "LastName")
+      ],
       onLogin: _authUser,
       onSignup: _signupUser,
       // onSubmitAnimationCompleted: () {
