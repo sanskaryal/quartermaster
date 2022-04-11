@@ -14,10 +14,12 @@
   will also add the choreID to the current household's chores array.
 */
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:quartermaster/household/globals.dart';
 import 'package:quartermaster/services/firestore.dart';
+import 'package:quartermaster/services/models.dart';
 
 class CreateChore extends StatefulWidget {
   const CreateChore({Key? key}) : super(key: key);
@@ -39,8 +41,15 @@ class _CreateChoreState extends State<CreateChore> {
   //Future<Households> currentHouse =
   //   FireStoreService().getHouseholdInfo("create_chore_house");
 
-  Future<List<String>> houseMembers =
-      FireStoreService().getHouseMemberNames(Global.gethhid());
+  //Future<List<String>> houseMembers =
+  //  FireStoreService().getHouseMemberNames(Global.gethhid());
+
+  //Future<List<String>> memberQuery =
+  //  FireStoreService().getHouseMemberIDs(Global.gethhid());
+
+  Future<MemberData> houseMemberData = MemberData._getMemberData();
+  List<String> memberIDs = [];
+  List<String> memberNames = [];
 
   // chore fields
   String choreName = "";
@@ -161,7 +170,6 @@ class _CreateChoreState extends State<CreateChore> {
                 ElevatedButton(
                   onPressed: () async {
                     debugPrint("Done Button Pressed");
-                    choreUser = person.toString();
                     debugPrint(person.toString());
 
                     // Validate returns true if the form is valid, or false otherwise.
@@ -169,7 +177,10 @@ class _CreateChoreState extends State<CreateChore> {
                       // If the form is valid, display a snackbar. In the real world,
                       // you'd often call a server or save the information in a database.
 
-                      if (choreUser != "null") {
+                      if (person.toString() != "null") {
+                        choreUser = memberIDs
+                            .elementAt(memberNames.indexOf(person.toString()));
+
                         debugPrint(choreUser);
 
                         if (dateSelected.isEmpty) {
@@ -180,12 +191,13 @@ class _CreateChoreState extends State<CreateChore> {
                           debugPrint(dateSelected);
                         }
 
+                        // changed "create_chore_house" tp Global.gethhid()
                         await FireStoreService().createChores(
                             choreName,
                             choreUser,
                             frequency,
                             dateSelected,
-                            "create_chore_house");
+                            Global.gethhid());
 
                         debugPrint("Chore created");
                         Navigator.pushNamed(context, '/viewChore');
@@ -212,12 +224,18 @@ class _CreateChoreState extends State<CreateChore> {
 
   // choose member dropdown widget
   Widget chooseMember() {
-    return FutureBuilder<List<String>>(
-        future: houseMembers,
-        builder: (context, AsyncSnapshot<List<String>> snapshot) {
+    return FutureBuilder<MemberData>(
+        future: houseMemberData,
+        builder: (context, AsyncSnapshot<MemberData> snapshot) {
           if (snapshot.hasData) {
             debugPrint("member snapshot has data");
-            List<String> options = snapshot.data!;
+
+            memberIDs = snapshot.data!.ids;
+            debugPrint(memberIDs.toString());
+
+            memberNames = snapshot.data!.names;
+            debugPrint(memberNames.toString());
+
             return DropdownButton(
               value: person,
               onChanged: (value) {
@@ -225,7 +243,7 @@ class _CreateChoreState extends State<CreateChore> {
                   person = value.toString();
                 });
               },
-              items: options.map((itemone) {
+              items: memberNames.map((itemone) {
                 return DropdownMenuItem(
                   value: itemone,
                   child: Text(itemone),
@@ -234,8 +252,24 @@ class _CreateChoreState extends State<CreateChore> {
               hint: const Text("Who's going to do it?"),
             );
           } else {
-            return const Text("Error. No users loaded.");
+            return const Text("Loading Users...");
           }
         });
+  }
+}
+
+class MemberData {
+  List<String> ids;
+  List<String> names;
+
+  MemberData(
+    this.ids,
+    this.names,
+  );
+
+  static Future<MemberData> _getMemberData() async {
+    return MemberData(
+        await FireStoreService().getHouseMemberIDs(Global.gethhid()),
+        await FireStoreService().getHouseMemberNames(Global.gethhid()));
   }
 }

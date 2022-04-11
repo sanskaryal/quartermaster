@@ -33,7 +33,7 @@ class ViewChores extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           FutureBuilder(
-              future: FireStoreService().getHouseholdInfo("create_chore_house"),
+              future: FireStoreService().getHouseholdInfo(Global.gethhid()),
               builder: (context, AsyncSnapshot<Households> snapshot) {
                 if (snapshot.hasData) {
                   debugPrint("snapshot has data");
