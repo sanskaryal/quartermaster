@@ -64,3 +64,24 @@ Map<String, dynamic> _$ChoresToJson(Chores instance) => <String, dynamic>{
       'frequency': instance.frequency,
       'dueDate': instance.dueDate,
     };
+
+Expenses _$ExpensesFromJson(Map<String, dynamic> json) => Expenses(
+      creatorID: json['creatorID'] as String? ?? '',
+      hhid: json['hhid'] as String? ?? '',
+      name: json['name'] as String? ?? '',
+      description: json['description'] as String? ?? '',
+      cost: (json['cost'] as num?)?.toDouble() ?? 0.0,
+      members: (json['members'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const [],
+    );
+
+Map<String, dynamic> _$ExpensesToJson(Expenses instance) => <String, dynamic>{
+      'creatorID': instance.creatorID,
+      'hhid': instance.hhid,
+      'name': instance.name,
+      'description': instance.description,
+      'cost': instance.cost,
+      'members': instance.members,
+    };

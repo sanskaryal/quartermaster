@@ -68,3 +68,26 @@ class Chores {
   factory Chores.fromJson(Map<String, dynamic> json) => _$ChoresFromJson(json);
   Map<String, dynamic> toJson() => _$ChoresToJson(this);
 }
+
+@JsonSerializable()
+class Expenses {
+  final String creatorID;
+  final String hhid;
+  final String name;
+  final String description;
+  final double cost;
+  final List<String> members;
+
+  Expenses({
+    this.creatorID = '',
+    this.hhid = '',
+    this.name = '',
+    this.description = '',
+    this.cost = 0.0,
+    this.members = const [],
+  });
+
+  factory Expenses.fromJson(Map<String, dynamic> json) =>
+      _$ExpensesFromJson(json);
+  Map<String, dynamic> toJson() => _$ExpensesToJson(this);
+}
