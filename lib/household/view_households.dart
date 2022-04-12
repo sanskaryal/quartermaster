@@ -31,6 +31,13 @@ class _ViewHouseHoldsState extends State<ViewHouseHolds> {
         padding: const EdgeInsets.all(10.0),
         child: getTextWidgets(widget.userInfo, context),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, '/createHousehold');
+        },
+        tooltip: 'Create new HouseHold',
+        child: const Icon(Icons.add),
+      ),
       bottomNavigationBar: const BottomNavBar(),
     );
   }
