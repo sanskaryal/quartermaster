@@ -145,4 +145,33 @@ class FireStoreService {
     };
     return ref.set(data, SetOptions(merge: true));
   }
+
+  Future<void> createExpense(String creatorID, String hhid, String name,
+      String desc, double cost, List<String> members) {
+    var ref = _db.collection('Expenses').doc();
+    String expID = ref.id;
+
+    var data = {
+      'creatorID': creatorID,
+      'hhid': hhid,
+      'name': name,
+      'description': desc,
+      'cost': cost,
+      'members': members,
+    };
+
+    addExpenseToHouseHold(expID, Global.gethhid());
+
+    return ref.set(data, SetOptions(merge: true));
+  }
+
+  Future<void> addExpenseToHouseHold(cid, hhid) {
+    var ref = _db.collection('Households').doc(hhid);
+
+    var data = {
+      'expenses': FieldValue.arrayUnion([cid])
+    };
+
+    return ref.set(data, SetOptions(merge: true));
+  }
 }

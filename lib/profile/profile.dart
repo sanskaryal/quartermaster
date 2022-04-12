@@ -34,6 +34,12 @@ class ProfileScreen extends StatelessWidget {
                           Navigator.pushNamed(context, '/addMember');
                         },
                       ),
+                      ElevatedButton(
+                        child: const Text("create expense"),
+                        onPressed: () async {
+                          Navigator.pushNamed(context, '/createExpense');
+                        },
+                      ),
                     ],
                   ),
                   Row(
