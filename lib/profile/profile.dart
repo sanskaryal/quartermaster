@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:quartermaster/chore/view_all_chores.dart';
 import 'package:quartermaster/services/auth.dart';
+import 'package:quartermaster/services/firestore.dart';
+import 'package:quartermaster/services/models.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -13,21 +16,36 @@ class ProfileScreen extends StatelessWidget {
               appBar: AppBar(
                 title: const Text("Profile"),
               ),
-              body: Row(
+              body: Column(
                 children: [
-                  ElevatedButton(
-                    child: const Text("log me out"),
-                    onPressed: () async {
-                      await AuthService().signOut();
-                      Navigator.of(context)
-                          .pushNamedAndRemoveUntil('/', (route) => false);
-                    },
+                  Row(
+                    children: [
+                      ElevatedButton(
+                        child: const Text("log me out"),
+                        onPressed: () async {
+                          await AuthService().signOut();
+                          Navigator.of(context)
+                              .pushNamedAndRemoveUntil('/', (route) => false);
+                        },
+                      ),
+                      ElevatedButton(
+                        child: const Text("add member"),
+                        onPressed: () async {
+                          Navigator.pushNamed(context, '/addMember');
+                        },
+                      ),
+                      ElevatedButton(
+                        child: const Text("create expense"),
+                        onPressed: () async {
+                          Navigator.pushNamed(context, '/createExpense');
+                        },
+                      ),
+                    ],
                   ),
-                  ElevatedButton(
-                    child: Text("${snapshot.data}"),
-                    onPressed: () {
-                      debugPrint(snapshot.data);
-                    },
+                  Row(
+                    children: [
+                      goToChores(),
+                    ],
                   ),
                 ],
               ),
@@ -37,6 +55,32 @@ class ProfileScreen extends StatelessWidget {
             );
           } else {
             return const CircularProgressIndicator();
+          }
+        });
+  }
+
+  Widget goToChores() {
+    return FutureBuilder(
+        future: FireStoreService().getHouseholdInfo("create_chore_house"),
+        builder: (context, AsyncSnapshot<Households> snapshot) {
+          if (snapshot.hasData) {
+            debugPrint("snapshot has data");
+            return ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ViewAllChores(
+                                choreInfo: snapshot.data!.chores,
+                              )));
+                },
+                child: const Text("All Chores"));
+          } else {
+            return ElevatedButton(
+                onPressed: () {
+                  debugPrint("No data");
+                },
+                child: const Text("FAILURE"));
           }
         });
   }

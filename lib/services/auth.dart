@@ -15,7 +15,7 @@ class AuthService {
     return null;
   }
 
-  Future<String?> signUp(email, password) async {
+  Future<String?> signUp(email, password, firstName, lastName) async {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
@@ -28,7 +28,7 @@ class AuthService {
     } catch (e) {
       return (e.toString());
     }
-    FireStoreService().createUsers(email);
+    FireStoreService().createUsers(email, firstName, lastName);
     return null;
   }
 
@@ -47,6 +47,7 @@ class AuthService {
         return 'Wrong password provided for that user.';
       }
     }
+
     return null;
   }
 }

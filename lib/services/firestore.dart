@@ -1,4 +1,8 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:quartermaster/household/globals.dart';
 import 'package:quartermaster/services/models.dart';
 import 'package:quartermaster/household/globals.dart';
 import 'auth.dart';
@@ -7,13 +11,13 @@ class FireStoreService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
   var user = AuthService().user!;
 
-  Future<void> createUsers(email) {
+  Future<void> createUsers(email, firstName, lastName) {
     var ref = _db.collection('Users').doc(user.uid);
 
     var data = {
       'email': email,
-      'firstName': 'John',
-      'lastName': 'Doe',
+      'firstName': firstName,
+      'lastName': lastName,
       'houseHolds': [],
     };
     return ref.set(data, SetOptions(merge: true));
@@ -70,9 +74,9 @@ class FireStoreService {
     return ref.set(data, SetOptions(merge: true));
   }
 
-  Future<void> createChores(name, member, frequency, date) {
+  Future<void> createChores(name, member, frequency, date, hhid) {
     var ref = _db.collection('Chores').doc();
-    // String choreID = ref.id;
+    String choreID = ref.id;
 
     var data = {
       'name': name,
@@ -81,7 +85,105 @@ class FireStoreService {
       'dueDate': date
     };
     // how to get houseHoldID?
-    // addChoreToHousehold(choreID, houseHoldID);
+    addChoreToHouseHold(choreID, Global.gethhid());
+
+    return ref.set(data, SetOptions(merge: true));
+  }
+
+  Future<void> addChoreToHouseHold(cid, hhid) {
+    var ref = _db.collection('Households').doc(hhid);
+
+    var data = {
+      'chores': FieldValue.arrayUnion([cid])
+    };
+
+    return ref.set(data, SetOptions(merge: true));
+  }
+
+  Future<Chores> getChoreInfo(choreID) async {
+    var ref = _db.collection('Chores').doc(choreID);
+    var snapshot = await ref.get();
+    return Chores.fromJson(snapshot.data() ?? {});
+  }
+
+  Future<List<String>> getHouseMemberIDs(hid) async {
+    List<String> userIDs = [];
+    var ref = _db.collection('Users').where('houseHolds', arrayContains: hid);
+    var snapshot = await ref.get();
+
+    for (var user in snapshot.docs) {
+      userIDs.add(user.id);
+    }
+
+    return userIDs;
+  }
+
+  Future<List<String>> getHouseMemberNames(hid) async {
+    List<String> memberNames = [];
+    var ref = _db.collection('Users').where('houseHolds', arrayContains: hid);
+    var snapshot = await ref.get();
+
+    for (var user in snapshot.docs) {
+      memberNames.add(user.get("firstName"));
+    }
+
+    return memberNames;
+  }
+
+  Future<String> getUidByEmail(email) async {
+    var ref = _db.collection('Users').where("email", isEqualTo: email).limit(1);
+    var snapshot = await ref.get();
+    for (var user in snapshot.docs) {
+      return user.id;
+    }
+    return "";
+  }
+
+  Future<void> addHidToUser(email, hhid) async {
+    String uid = await getUidByEmail(email);
+    var ref = _db.collection('Users').doc(uid);
+
+    var data = {
+      'houseHolds': FieldValue.arrayUnion([hhid])
+    };
+    return ref.set(data, SetOptions(merge: true));
+  }
+
+  Future<void> addUidtoHH(email, hhid) async {
+    String uid = await getUidByEmail(email);
+    var ref = _db.collection("Households").doc(hhid);
+
+    var data = {
+      'users': FieldValue.arrayUnion([uid])
+    };
+    return ref.set(data, SetOptions(merge: true));
+  }
+
+  Future<void> createExpense(String creatorID, String hhid, String name,
+      String desc, double cost, List<String> members) {
+    var ref = _db.collection('Expenses').doc();
+    String expID = ref.id;
+
+    var data = {
+      'creatorID': creatorID,
+      'hhid': hhid,
+      'name': name,
+      'description': desc,
+      'cost': cost,
+      'members': members,
+    };
+
+    addExpenseToHouseHold(expID, Global.gethhid());
+
+    return ref.set(data, SetOptions(merge: true));
+  }
+
+  Future<void> addExpenseToHouseHold(cid, hhid) {
+    var ref = _db.collection('Households').doc(hhid);
+
+    var data = {
+      'expenses': FieldValue.arrayUnion([cid])
+    };
 
     return ref.set(data, SetOptions(merge: true));
   }
