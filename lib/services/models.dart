@@ -96,6 +96,7 @@ class ShoppingItems {
   Map<String, dynamic> toJson() => _$ShoppingItemsToJson(this);
 }
 
+@JsonSerializable()
 class Expenses {
   final String creatorID;
   final String hhid;

@@ -7,39 +7,51 @@ class BottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
+      type: BottomNavigationBarType.fixed,
       items: const [
         BottomNavigationBarItem(
           icon: Icon(
             FontAwesomeIcons.tasks,
-            size: 20,
+            size: 15,
           ),
           label: 'Chores',
         ),
         BottomNavigationBarItem(
           icon: Icon(
             FontAwesomeIcons.dollarSign,
-            size: 20,
+            size: 15,
           ),
           label: 'Expenses',
         ),
         BottomNavigationBarItem(
           icon: Icon(
             FontAwesomeIcons.shoppingCart,
-            size: 20,
+            size: 15,
           ),
-          label: 'Shopping List',
+          label: 'Shopping',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(
+            FontAwesomeIcons.portrait,
+            size: 15,
+          ),
+          label: 'Profile',
         ),
       ],
       fixedColor: Colors.deepPurple[200],
       onTap: (int idx) {
         switch (idx) {
           case 0:
+            Navigator.pushNamed(context, '/viewChore');
             break;
           case 1:
             Navigator.pushNamed(context, '/profile');
             break;
           case 2:
             Navigator.pushNamed(context, '/viewShopList');
+            break;
+          case 3:
+            Navigator.pushNamed(context, '/profile');
             break;
         }
       },
