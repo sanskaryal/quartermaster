@@ -238,4 +238,8 @@ class FireStoreService {
     // add a function to update the household field on users table
     return ref.set(data, SetOptions(merge: true));
   }
+
+  Future<void> viewExpenses() {
+    return null;
+  }
 }

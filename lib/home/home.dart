@@ -12,7 +12,6 @@ class HomepageScreen extends StatelessWidget {
     return StreamBuilder(
       stream: AuthService().userStream,
       builder: (context, snapshot) {
-        debugPrint("userstream detected");
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Text('Loading');
         } else if (snapshot.hasError) {

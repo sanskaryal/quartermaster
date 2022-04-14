@@ -3,60 +3,60 @@ import 'package:quartermaster/chore/view_all_chores.dart';
 import 'package:quartermaster/services/auth.dart';
 import 'package:quartermaster/services/firestore.dart';
 import 'package:quartermaster/services/models.dart';
+import 'package:quartermaster/shared/bottom_navbar.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
   @override
   Widget build(context) {
-    return FutureBuilder<String?>(
-        future: AuthService().getUserId(),
-        builder: (context, AsyncSnapshot<String?> snapshot) {
-          if (snapshot.hasData) {
-            return Scaffold(
-              appBar: AppBar(
-                title: const Text("Profile"),
+    return Scaffold(
+      appBar: AppBar(title: const Text("Options")),
+      body: Padding(
+        padding: const EdgeInsets.all(25.0),
+        child: Center(
+          child: Column(
+            children: [
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  minimumSize: const Size(300, 50),
+                ),
+                child: const Text("LogOut"),
+                onPressed: () async {
+                  await AuthService().signOut();
+                  Navigator.of(context)
+                      .pushNamedAndRemoveUntil('/', (route) => false);
+                },
               ),
-              body: Column(
-                children: [
-                  Row(
-                    children: [
-                      ElevatedButton(
-                        child: const Text("log me out"),
-                        onPressed: () async {
-                          await AuthService().signOut();
-                          Navigator.of(context)
-                              .pushNamedAndRemoveUntil('/', (route) => false);
-                        },
-                      ),
-                      ElevatedButton(
-                        child: const Text("add member"),
-                        onPressed: () async {
-                          Navigator.pushNamed(context, '/addMember');
-                        },
-                      ),
-                      ElevatedButton(
-                        child: const Text("create expense"),
-                        onPressed: () async {
-                          Navigator.pushNamed(context, '/createExpense');
-                        },
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      goToChores(),
-                    ],
-                  ),
-                ],
+              const SizedBox(
+                height: 10,
               ),
-              floatingActionButton: FloatingActionButton(onPressed: () {
-                Navigator.pushNamed(context, '/createChore');
-              }),
-            );
-          } else {
-            return const CircularProgressIndicator();
-          }
-        });
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  minimumSize: const Size(300, 50),
+                ),
+                child: const Text("Add Member to this Household"),
+                onPressed: () async {
+                  Navigator.pushNamed(context, '/addMember');
+                },
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  minimumSize: const Size(300, 50),
+                ),
+                child: const Text("Switch Household"),
+                onPressed: () async {
+                  Navigator.pushNamed(context, '/');
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+      bottomNavigationBar: const BottomNavBar(),
+    );
   }
 
   Widget goToChores() {

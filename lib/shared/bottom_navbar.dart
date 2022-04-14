@@ -32,13 +32,13 @@ class BottomNavBar extends StatelessWidget {
         ),
         BottomNavigationBarItem(
           icon: Icon(
-            FontAwesomeIcons.portrait,
+            FontAwesomeIcons.toolbox,
             size: 15,
           ),
-          label: 'Profile',
+          label: 'Options',
         ),
       ],
-      fixedColor: Colors.deepPurple[200],
+      fixedColor: Colors.black54,
       onTap: (int idx) {
         switch (idx) {
           case 0:

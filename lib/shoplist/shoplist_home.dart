@@ -5,8 +5,6 @@ import 'package:quartermaster/household/globals.dart';
 import 'package:quartermaster/services/firestore.dart';
 import 'package:quartermaster/services/models.dart';
 import 'package:quartermaster/shared/bottom_navbar.dart';
-import 'package:quartermaster/shoplist/create_ShoppingList.dart';
-import 'package:quartermaster/shoplist/view_shoplists.dart';
 
 class ViewShopLists extends StatefulWidget {
   // shopListInfo is shoplist array
@@ -45,7 +43,7 @@ Widget getTextWidgets(List<String> strings, context) {
   return ListView(
       children: strings
           .map((slid) => Center(
-              child: FutureBuilder<ShoppingLists>(
+              child: FutureBuilder(
                   future: FireStoreService().getShopListInfo(slid),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
@@ -67,7 +65,7 @@ Widget createCard(sl, slid, context) {
         onPressed: () {
           Global.setslid(slid);
           inspect(slid);
-          Navigator.pushNamed(context, '/viewShoppingItems');        
+          Navigator.pushNamed(context, '/viewShoppingItems');
         },
         child: Text(sl.name),
       ),
