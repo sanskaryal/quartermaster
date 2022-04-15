@@ -45,7 +45,7 @@ class BottomNavBar extends StatelessWidget {
             Navigator.pushNamed(context, '/viewChore');
             break;
           case 1:
-            Navigator.pushNamed(context, '/profile');
+            Navigator.pushNamed(context, '/expense');
             break;
           case 2:
             Navigator.pushNamed(context, '/viewShopList');

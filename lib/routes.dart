@@ -1,6 +1,7 @@
 import 'package:quartermaster/chore/create_chore.dart';
 import 'package:quartermaster/chore/view_chores.dart';
 import 'package:quartermaster/expense/create_expense.dart';
+import 'package:quartermaster/expense/view_expense.dart';
 import 'package:quartermaster/home/chore_home.dart';
 // import 'package:quartermaster/expense/expense_home.dart';
 import 'package:quartermaster/home/home.dart';
@@ -15,7 +16,7 @@ var appRoutes = {
   '/': (context) => const HomepageScreen(),
   '/login': (context) => const LoginScreen(),
   '/profile': (context) => const ProfileScreen(),
-  // '/expense': (context) => const ExpenseHomeScreen(),
+  '/expense': (context) => const ViewExpenses(),
   '/chore': (context) => const HomeScreen(),
   '/createShopList': (context) => const CreateShopList(),
   '/createHousehold': (context) => const CreateHousehold(),

@@ -239,7 +239,24 @@ class FireStoreService {
     return ref.set(data, SetOptions(merge: true));
   }
 
-  Future<void> viewExpenses() {
-    return null;
+  Future<List<Expenses>> getExpenses() async {
+    List<Expenses> expensesOfCurrHH = [];
+    var ref =
+        _db.collection('Expenses').where('hhid', isEqualTo: Global.gethhid());
+    var snapshot = await ref.get();
+    for (var expense in snapshot.docs) {
+      inspect(expense.data());
+      //convert the json to dart object
+      var exp = Expenses.fromJson(expense.data());
+      expensesOfCurrHH.add(exp);
+    }
+    return expensesOfCurrHH;
+  }
+
+  Future<String> getUserName(uid) async {
+    var ref = _db.collection('Users').doc(uid);
+    var snapshot = await ref.get();
+    var user = Users.fromJson(snapshot.data() ?? {});
+    return user.firstName.toString();
   }
 }
