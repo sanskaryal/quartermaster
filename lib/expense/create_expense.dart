@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:quartermaster/household/globals.dart';
@@ -31,8 +33,6 @@ class _CreateExpenseState extends State<CreateExpense> {
   // user query future
   Future<List<Users>> houseUsers =
       FireStoreService().getHouseMembers(Global.gethhid());
-
-  // List<bool> isPressed = [];
 
   List<String> userNames = [];
 
@@ -150,6 +150,8 @@ class _CreateExpenseState extends State<CreateExpense> {
                               memberIDs);
 
                           // navigate to view expenses screen
+
+                          Navigator.pushNamed(context, '/expense');
                         }
                       }
                     },
@@ -208,7 +210,9 @@ class _StatefulButtonState extends State<StatefulButton> {
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
+    return RaisedButton(
+        textColor: Colors.white,
+        color: isPressed ? Colors.amber : Colors.blue,
         onPressed: () {
           if (isPressed == false) {
             setState(() {

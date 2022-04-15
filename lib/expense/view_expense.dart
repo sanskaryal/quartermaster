@@ -71,6 +71,10 @@ class ViewExpenses extends StatelessWidget {
         },
       ),
       bottomNavigationBar: const BottomNavBar(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Navigator.pushNamed(context, '/createExpense'),
+        child: Icon(Icons.add),
+      ),
     );
   }
 }
