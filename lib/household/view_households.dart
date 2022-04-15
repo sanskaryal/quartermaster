@@ -40,7 +40,6 @@ class _ViewHouseHoldsState extends State<ViewHouseHolds> {
         tooltip: 'Create new HouseHold',
         child: const Icon(Icons.add),
       ),
-      bottomNavigationBar: const BottomNavBar(),
     );
   }
 }
@@ -53,7 +52,6 @@ Widget getTextWidgets(List<String> strings, context) {
                   future: FireStoreService().getHouseholdInfo(hhid),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
-                      debugPrint(snapshot.data!.name + "aa");
                       return createCard(snapshot.data, hhid, context);
                     } else {
                       return const Text("");

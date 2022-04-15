@@ -32,20 +32,20 @@ class BottomNavBar extends StatelessWidget {
         ),
         BottomNavigationBarItem(
           icon: Icon(
-            FontAwesomeIcons.portrait,
+            FontAwesomeIcons.toolbox,
             size: 15,
           ),
-          label: 'Profile',
+          label: 'Options',
         ),
       ],
-      fixedColor: Colors.deepPurple[200],
+      fixedColor: Colors.black54,
       onTap: (int idx) {
         switch (idx) {
           case 0:
             Navigator.pushNamed(context, '/viewChore');
             break;
           case 1:
-            Navigator.pushNamed(context, '/profile');
+            Navigator.pushNamed(context, '/expense');
             break;
           case 2:
             Navigator.pushNamed(context, '/viewShopList');
