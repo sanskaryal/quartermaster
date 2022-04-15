@@ -15,6 +15,7 @@ class FireStoreService {
     var ref = _db.collection('Users').doc(user.uid);
 
     var data = {
+      'uid': user.uid,
       'email': email,
       'firstName': firstName,
       'lastName': lastName,
@@ -104,6 +105,19 @@ class FireStoreService {
     var ref = _db.collection('Chores').doc(choreID);
     var snapshot = await ref.get();
     return Chores.fromJson(snapshot.data() ?? {});
+  }
+
+  Future<List<Users>> getHouseMembers(hid) async {
+    List<Users> users = [];
+
+    var ref = _db.collection('Users').where('houseHolds', arrayContains: hid);
+    var snapshot = await ref.get();
+
+    for (var user in snapshot.docs) {
+      users.add(Users.fromJson(user.data()));
+    }
+
+    return users;
   }
 
   Future<List<String>> getHouseMemberIDs(hid) async {

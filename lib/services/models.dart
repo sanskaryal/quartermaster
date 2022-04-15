@@ -4,13 +4,15 @@ part 'models.g.dart';
 
 @JsonSerializable()
 class Users {
+  final String uid;
   final String email;
   final String firstName;
   final String lastName;
   final List<String> houseHolds;
 
   Users(
-      {this.email = '',
+      {this.uid = '',
+      this.email = '',
       this.firstName = '',
       this.lastName = '',
       this.houseHolds = const []});
