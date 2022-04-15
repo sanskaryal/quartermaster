@@ -53,7 +53,11 @@ class ViewExpenses extends StatelessWidget {
                                           const TextStyle(color: Colors.white),
                                     );
                                   } else {
-                                    return const Text('PAID BY:');
+                                    return const Text(
+                                      'PAID BY:',
+                                      style:
+                                          const TextStyle(color: Colors.white),
+                                    );
                                   }
                                 }),
                           ),

@@ -3,7 +3,6 @@ import 'package:quartermaster/chore/view_chores.dart';
 import 'package:quartermaster/expense/create_expense.dart';
 import 'package:quartermaster/expense/view_expense.dart';
 import 'package:quartermaster/home/chore_home.dart';
-// import 'package:quartermaster/expense/expense_home.dart';
 import 'package:quartermaster/home/home.dart';
 import 'package:quartermaster/household/add_member.dart';
 import 'package:quartermaster/household/create_household.dart';

@@ -1,10 +1,7 @@
 import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 import 'package:quartermaster/household/globals.dart';
 import 'package:quartermaster/services/models.dart';
-import 'package:quartermaster/household/globals.dart';
 import 'auth.dart';
 
 class FireStoreService {
@@ -114,6 +111,9 @@ class FireStoreService {
     var snapshot = await ref.get();
 
     for (var user in snapshot.docs) {
+      if (user.id == Global.getuid()) {
+        continue;
+      }
       users.add(Users.fromJson(user.data()));
     }
 
@@ -272,5 +272,38 @@ class FireStoreService {
     var snapshot = await ref.get();
     var user = Users.fromJson(snapshot.data() ?? {});
     return user.firstName.toString();
+  }
+
+  Future<void> createOwes(
+      double cost, List<String> memberIDs, String uid, String hhid) async {
+    String uid1 = uid.substring(0, 10);
+    double value = cost / ((memberIDs.length + 1));
+    int multiplier = 1;
+    String concatenated = "";
+
+    for (String memberID in memberIDs) {
+      String memberID1 = memberID.substring(0, 10);
+      var result = memberID.compareTo(uid);
+      String who = "";
+      String whom = "";
+      if (result < 0) {
+        multiplier = 1;
+        concatenated = memberID1 + uid1;
+        who = memberID;
+        whom = uid;
+      } else if (result > 0) {
+        multiplier = -1;
+        concatenated = uid1 + memberID1;
+        who = uid1;
+        whom = memberID;
+      }
+      var ref = _db.collection('Owes').doc(concatenated);
+      var data = {
+        'amount': FieldValue.increment(multiplier * value),
+        'who': who,
+        'whom': whom
+      };
+      ref.set(data, SetOptions(merge: true));
+    }
   }
 }

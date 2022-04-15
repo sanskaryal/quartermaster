@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:quartermaster/household/globals.dart';
@@ -121,7 +119,7 @@ class _CreateExpenseState extends State<CreateExpense> {
                           ),
                         );
                       } else {
-                        return const Text("Loadign Users...");
+                        return const Text("Loading Users...");
                       }
                     }),
 
@@ -148,6 +146,8 @@ class _CreateExpenseState extends State<CreateExpense> {
                               desc,
                               cost,
                               memberIDs);
+                          await FireStoreService().createOwes(cost, memberIDs,
+                              Global.getuid(), Global.gethhid());
 
                           // navigate to view expenses screen
 
