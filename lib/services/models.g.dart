@@ -117,3 +117,17 @@ Map<String, dynamic> _$ExpensesToJson(Expenses instance) => <String, dynamic>{
       'cost': instance.cost,
       'members': instance.members,
     };
+
+Owes _$OwesFromJson(Map<String, dynamic> json) => Owes(
+      amount: (json['amount'] as num?)?.toDouble() ?? 0.0,
+      who: json['who'] as String? ?? '',
+      whom: json['whom'] as String? ?? '',
+      id: json['id'] as String? ?? '',
+    );
+
+Map<String, dynamic> _$OwesToJson(Owes instance) => <String, dynamic>{
+      'amount': instance.amount,
+      'who': instance.who,
+      'whom': instance.whom,
+      'id': instance.id,
+    };

@@ -32,7 +32,7 @@ class BottomNavBar extends StatelessWidget {
         ),
         BottomNavigationBarItem(
           icon: Icon(
-            FontAwesomeIcons.toolbox,
+            FontAwesomeIcons.user,
             size: 15,
           ),
           label: 'Options',

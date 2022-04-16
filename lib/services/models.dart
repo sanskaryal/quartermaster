@@ -120,3 +120,16 @@ class Expenses {
       _$ExpensesFromJson(json);
   Map<String, dynamic> toJson() => _$ExpensesToJson(this);
 }
+
+@JsonSerializable()
+class Owes {
+  final double amount;
+  final String who;
+  final String whom;
+  final String id;
+
+  Owes({this.amount = 0.0, this.who = '', this.whom = '', this.id = ''});
+
+  factory Owes.fromJson(Map<String, dynamic> json) => _$OwesFromJson(json);
+  Map<String, dynamic> toJson() => _$OwesToJson(this);
+}
