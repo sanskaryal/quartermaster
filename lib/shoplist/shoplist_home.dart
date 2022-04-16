@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:quartermaster/household/globals.dart';
 import 'package:quartermaster/services/firestore.dart';
-import 'package:quartermaster/services/models.dart';
 import 'package:quartermaster/shared/bottom_navbar.dart';
 
 class ViewShopLists extends StatefulWidget {

@@ -39,10 +39,16 @@ class FireStoreService {
     return ShoppingLists.fromJson(snapshot.data() ?? {});
   }
 
-  Future<ShoppingItems> getShopItemsInfo(shopItemsID) async {
-    var ref = _db.collection('ShoppingItems').doc(shopItemsID);
+  Future<List<ShoppingItems>> getShopItemsName() async{
+    List<ShoppingItems> listOfItems = [];
+    var ref = _db.collection('ShoppingItems').where('shoppingListID', isEqualTo: Global.getslid());
     var snapshot = await ref.get();
-    return ShoppingItems.fromJson(snapshot.data() ?? {});
+    for (var item in snapshot.docs){
+      var itm = ShoppingItems.fromJson(item.data());
+      listOfItems.add(itm);
+      inspect(itm.itemName);
+    }
+    return listOfItems;
   }
 
   Future<void> createHouseholds(name) {

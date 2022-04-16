@@ -1,9 +1,6 @@
-//import 'dart:html';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:quartermaster/services/firestore.dart';
-import 'package:quartermaster/services/models.dart';
+import 'package:quartermaster/shoplist/view_shopitems.dart';
 import 'package:quartermaster/shoplist/view_shoplists.dart';
 import '../shared/bottom_navbar.dart';
 import 'package:quartermaster/household/globals.dart';
@@ -27,7 +24,7 @@ class _CreateShopListState extends State<CreateShopList> {
 
   // shoplist fields
   String name = "";
-  String household = "";
+  String household = Global.gethhid();
   static List<String> items = [];
 
   @override
@@ -57,40 +54,14 @@ class _CreateShopListState extends State<CreateShopList> {
                       Icons.shopping_cart,
                       color: Colors.blue,
                     ),
-                    border: OutlineInputBorder(
-                        //borderRadius: BorderRadius.all(Radius.circular(50))
-                        ),
+                    border: OutlineInputBorder(),
                     labelText: 'Enter the name for your shopping list'),
               ),
               const SizedBox(
                 height: 15.0,
               ),
-              TextFormField(
-                //controller: shopListNameController,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your household name.';
-                  } else {
-                    household = value;
-                    debugPrint(household);
-                  }
-                  return null;
-                },
-                decoration: const InputDecoration(
-                    prefixIcon: Icon(
-                      Icons.home_filled,
-                      color: Colors.blue,
-                    ),
-                    border: OutlineInputBorder(
-                        //borderRadius: BorderRadius.all(Radius.circular(50))
-                        ),
-                    labelText: 'Enter your household name'),
-              ),
-              const SizedBox(
-                height: 15.0,
-              ),
               ElevatedButton(
-                child: const Text('Done'),
+                child: const Text('Create Shopping List'),
                 onPressed: () async {
                   // Validate returns true if the form is valid, or false otherwise.
                   if (_formKey.currentState!.validate()) {
@@ -114,14 +85,15 @@ class _CreateShopListState extends State<CreateShopList> {
 }
 
 class ShoppingItem extends StatefulWidget {
-  //final List<String> shopItemInfo = [];
+  const ShoppingItem({Key? key}) : super(key: key);
 
   @override
   _State createState() => _State();
 }
 
 class _State extends State<ShoppingItem> {
-  final List<String> itemName = <String>[];
+  final List<String> itemList = <String>[];
+  String itemName = '';
 
   TextEditingController nameController = TextEditingController();
   bool status = false;
@@ -134,7 +106,9 @@ class _State extends State<ShoppingItem> {
     }
     if (nameController.value.text.isNotEmpty) {
       setState(() {
-        itemName.insert(0, nameController.text);
+        itemList.insert(0, nameController.text);
+        itemName = nameController.text;
+        FireStoreService().ShoppingListItems(itemName, status, shopListID);
         nameController.clear();
       });
     }
@@ -161,7 +135,7 @@ class _State extends State<ShoppingItem> {
               ),
             ),
           ),
-          RaisedButton(
+          ElevatedButton(
               child: const Text('Add'),
               onPressed: () {
                 addItemToList();
@@ -169,27 +143,22 @@ class _State extends State<ShoppingItem> {
           const SizedBox(
             height: 15.0,
           ),
-          ElevatedButton(
-            onPressed: () async {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const ShopListHomeScreen()),
-              );
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Shopping Items Added')),
-              );
-            },
-            child: const Text("Create Shopping List"),
+          const Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              'Recently added items are shown below:',
+              style: TextStyle(
+                color: Colors.blue,
+                fontSize: 25.0,
+              ),
+            ),
           ),
           Expanded(
               child: ListView.builder(
                   padding: const EdgeInsets.all(8),
-                  itemCount: itemName.length,
+                  itemCount: itemList.length,
                   itemBuilder: (BuildContext context, int index) {
-                    final item = itemName[index];
-                    FireStoreService()
-                        .ShoppingListItems(item, status, shopListID);
+                    final item = itemList[index];
                     return Container(
                       height: 30,
                       margin: const EdgeInsets.all(2),
@@ -198,10 +167,20 @@ class _State extends State<ShoppingItem> {
                         style:
                             const TextStyle(fontSize: 25, color: Colors.black),
                       ),
-                      // child: createCards(context),
                     );
                   })),
-        ]));
+        ]),
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: ((context) => const ViewShopItems())));
+          },
+          tooltip: 'View Shopping Items',
+          label: const Text("View All Shopping Items"),
+          icon: const Icon(Icons.view_list_outlined),
+        ));
   }
 }
 
