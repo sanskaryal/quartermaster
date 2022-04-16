@@ -71,13 +71,26 @@ class ViewExpenses extends StatelessWidget {
                   const Divider(),
             );
           }
-          return const Text('There is no expense created');
+          return const Text('');
         },
       ),
       bottomNavigationBar: const BottomNavBar(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.pushNamed(context, '/createExpense'),
-        child: Icon(Icons.add),
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            heroTag: 'settleup',
+              onPressed: () => Navigator.pushNamed(context, '/settleUp'),
+              child: Icon(Icons.calculate_outlined)),
+          SizedBox(
+            width: 10,
+          ),
+          FloatingActionButton(
+            heroTag: 'createexpense',
+            onPressed: () => Navigator.pushNamed(context, '/createExpense'),
+            child: Icon(Icons.add),
+          ),
+        ],
       ),
     );
   }

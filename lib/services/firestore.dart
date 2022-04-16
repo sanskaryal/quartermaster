@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:quartermaster/household/globals.dart';
 import 'package:quartermaster/services/models.dart';
 import 'auth.dart';
@@ -307,9 +308,38 @@ class FireStoreService {
       var data = {
         'amount': FieldValue.increment(multiplier * value),
         'who': who,
-        'whom': whom
+        'whom': whom,
+        'id': concatenated
       };
       ref.set(data, SetOptions(merge: true));
     }
+  }
+
+  Future<List<Owes>> getUserInWho() async {
+    List<Owes> whoList = [];
+    var ref = _db.collection('Owes').where('who', isEqualTo: Global.getuid());
+    var snapshot = await ref.get();
+    for (var owe in snapshot.docs) {
+      var o = Owes.fromJson(owe.data());
+      whoList.add(o);
+    }
+    return whoList;
+  }
+
+  Future<List<Owes>> getUserInWhom() async {
+    List<Owes> whomList = [];
+    var ref = _db.collection('Owes').where('whom', isEqualTo: Global.getuid());
+    var snapshot = await ref.get();
+    for (var owe in snapshot.docs) {
+      var o = Owes.fromJson(owe.data());
+      whomList.add(o);
+    }
+    return whomList;
+  }
+
+  Future<void> settleUp(String id) {
+    var ref = _db.collection('Owes').doc(id);
+    var data = {'amount': 0.0};
+    return ref.set(data, SetOptions(merge: true));
   }
 }

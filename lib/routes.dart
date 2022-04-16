@@ -1,6 +1,7 @@
 import 'package:quartermaster/chore/create_chore.dart';
 import 'package:quartermaster/chore/view_chores.dart';
 import 'package:quartermaster/expense/create_expense.dart';
+import 'package:quartermaster/expense/settle_up.dart';
 import 'package:quartermaster/expense/view_expense.dart';
 import 'package:quartermaster/home/chore_home.dart';
 import 'package:quartermaster/home/home.dart';
@@ -25,4 +26,5 @@ var appRoutes = {
   '/viewChore': (context) => const ViewChores(),
   '/addMember': (context) => const AddMember(),
   '/createExpense': (context) => const CreateExpense(),
+  '/settleUp': (context) => const SettleUp(),
 };
