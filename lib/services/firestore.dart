@@ -40,11 +40,13 @@ class FireStoreService {
     return ShoppingLists.fromJson(snapshot.data() ?? {});
   }
 
-  Future<List<ShoppingItems>> getShopItemsName() async{
+  Future<List<ShoppingItems>> getShopItemsName() async {
     List<ShoppingItems> listOfItems = [];
-    var ref = _db.collection('ShoppingItems').where('shoppingListID', isEqualTo: Global.getslid());
+    var ref = _db
+        .collection('ShoppingItems')
+        .where('shoppingListID', isEqualTo: Global.getslid());
     var snapshot = await ref.get();
-    for (var item in snapshot.docs){
+    for (var item in snapshot.docs) {
       var itm = ShoppingItems.fromJson(item.data());
       listOfItems.add(itm);
       inspect(itm.itemName);
@@ -285,6 +287,7 @@ class FireStoreService {
       double cost, List<String> memberIDs, String uid, String hhid) async {
     String uid1 = uid.substring(0, 10);
     double value = cost / ((memberIDs.length + 1));
+    debugPrint((memberIDs.length + 1).toString());
     int multiplier = 1;
     String concatenated = "";
 
@@ -301,7 +304,8 @@ class FireStoreService {
       } else if (result > 0) {
         multiplier = -1;
         concatenated = uid1 + memberID1;
-        who = uid1;
+        //who = uid1;
+        who = uid;
         whom = memberID;
       }
       var ref = _db.collection('Owes').doc(concatenated);

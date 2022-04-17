@@ -95,7 +95,7 @@ class _CreateExpenseState extends State<CreateExpense> {
                   ],
                   decoration: const InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: "How much did it cost?"),
+                      labelText: "How much did you pay?"),
                 ),
 
                 FutureBuilder<List<Users>>(
@@ -163,36 +163,6 @@ class _CreateExpenseState extends State<CreateExpense> {
       ),
     );
   }
-
-  // Widget getMemberWidgets() {
-  //   return FutureBuilder(
-  //       future: houseUsers,
-  //       builder: (context, AsyncSnapshot<List<Users>> snapshot) {
-  //         if (snapshot.hasData) {
-  //           for (var user in snapshot.data!) {
-  //             userNames.add(user.firstName);
-  //           }
-  //           return ListView.builder(
-  //               itemCount: userNames.length,
-  //               itemBuilder: (context, index) {
-  //                 createMemberCard(snapshot.data!, userNames, context);
-  //               });
-  //         } else {
-  //           return const Text("Loading Users...");
-  //         }
-  //       });
-  // }
-
-  // Widget createMemberCard(List<Users> users, List<String> names, context) {
-  //   return Padding(
-  //     padding: const EdgeInsets.all(8.0),
-  //     child: SizedBox(
-  //       height: 50,
-  //       width: double.maxFinite,
-  //       child: ElevatedButton(onPressed: () async {}, child: Text("")),
-  //     ),
-  //   );
-  // }
 }
 
 class StatefulButton extends StatefulWidget {
