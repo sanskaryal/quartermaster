@@ -148,7 +148,7 @@ class _CreateExpenseState extends State<CreateExpense> {
                               memberIDs);
                           await FireStoreService().createOwes(cost, memberIDs,
                               Global.getuid(), Global.gethhid());
-
+                          memberIDs = [];
                           // navigate to view expenses screen
 
                           Navigator.pushNamed(context, '/expense');
